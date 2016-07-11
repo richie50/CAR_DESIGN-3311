@@ -8,7 +8,8 @@ class
 	COMPACT
 	inherit
 		CAR
-
+			rename gas as gas_compact , accelerate as accelerate_compact
+			redefine gas_compact, accelerate_compact end
 create
 	make
 
@@ -60,12 +61,12 @@ feature -- Miscellaneous
 
 feature -- Basic operations
 
-gas:STRING
+gas_compact:STRING
 do
 	Result:="Increase by ...."
 end
 
-accelerate:STRING
+accelerate_compact:STRING
 do
 	Result:= "accelerating . . . . "
 end

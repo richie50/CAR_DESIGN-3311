@@ -9,8 +9,10 @@ class
 
 inherit
 	CAR
-
-
+		rename gas as gas_sports , accelerate as accelerate_sports
+		redefine gas_sports, accelerate_sports end
+create
+	make
 feature {NONE} -- Initialization
 
 	make (f:INTEGER; msg: STRING)
@@ -58,12 +60,12 @@ feature -- Miscellaneous
 
 feature -- Basic operations
 
-gas:STRING
+gas_sports:STRING
 do
 	Result:="Increase by ...."
 end
 
-accelerate:STRING
+ accelerate_sports:STRING
 do
 	Result:= "accelerating . . . . "
 end
