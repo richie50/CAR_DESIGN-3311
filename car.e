@@ -9,12 +9,16 @@ deferred class
 
 feature {ANY}
 
- gas:STRING
+ gas
  	deferred
 end
 
- accelerate:STRING
+ accelerate
  	deferred
+end
+
+brake
+	deferred
 end
 
 end

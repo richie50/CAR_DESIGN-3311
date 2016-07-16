@@ -3,11 +3,9 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
-class
-	APPLICATION
 
-inherit
-	ARGUMENTS
+class
+	APPLICATION inherit ES_SUITE
 
 create
 	make
@@ -15,25 +13,14 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Run application.
-			local
-				sedan: SEDAN
-				sports: SPORTS
-				compact: COMPACT
-				temp:STRING
+			-- Run tests
 		do
-			--| Add your code here
-			print ("Hello Eiffel World!%N")
-			create sedan.make (0, "lets get this");
-			temp:=  sedan.accelerate
-			create sports.make (0, "BRUH")
-			io.put_string (temp)
-			io.put_new_line
-			temp:=  sedan.gas
-			io.put_string (temp)
-			io.put_new_line
-
-
+			add_test (create {CAR_TEST}.make)
+			show_errors
+			show_browser
+			run_espec
 		end
 
+
 end
+
