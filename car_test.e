@@ -14,6 +14,7 @@ class
 feature
 	make
 	do
+		create output_file.make_open_write ("output.txt") -- test output file
 		add_boolean_case(agent t1)
 		add_boolean_case(agent t2)
 		add_boolean_case(agent t3)
@@ -132,11 +133,14 @@ feature -- tests
 							end
 						io.put_string ("SPORTS CAR SPEED AND FUEL INFO.....")
 						io.put_new_line
-						io.put_integer (sports.get_fuel)
+						output_file.put (sports.get_fuel.to_character_8)
 						io.put_new_line
-						io.put_integer (sports.get_speed)
+						output_file.put (sports.get_speed.to_character_8)
 						io.put_new_line
+						output_file.close
 						Result:= true
 					end
+feature
+	output_file: PLAIN_TEXT_FILE
 
 end

@@ -33,7 +33,7 @@ feature -- Access (fields
 	end
 	gas_max:INTEGER
 	once
-		Result:= 50 --speed limit for sedans and compact cars
+		Result:= 15 --speed limit for sedans and compact cars
 	end
 feature -- Status report
 
@@ -58,7 +58,15 @@ end
 feature {NONE} -- Implementation
 
 feature -- Miscellaneous
+refill_fuel(f:INTEGER)
+require
+	refill_range: f > 0 OR f <= 50
+do
+	fuel := fuel + f
 
+	ensure
+		fuel = old fuel + f
+end
 feature -- Basic operations
 
 gas_sports
@@ -77,16 +85,19 @@ local
 	current_gas_max:INTEGER
 	speed_check: INTEGER
 do
-	current_gas_max:= current.get_fuel --basicall max fuel fro the creation of the car
-	fuel:= (current.get_fuel - 1) - 1 --specfic to sports cars --ask the prof , confused
+	current_gas_max:= current.get_fuel --basicall max fuel fro the creation of the car , must be greater than 15
 	check
-		--invalid_fuel: fuel > 0
+		--invalid_fuel: current_gas_max > 0
 	end
-	speed:= current.get_speed
-	speedometer:= (speed + 1) + 1  --specific to sports cars
-
-	if fuel > gas_max then
-		speed_check:= (3 * current_gas_max) - 50 -- i leave it in the hands of the complier
+	if current_gas_max > gas_max then
+		fuel:= (current.get_fuel - 1) - 2 --specfic to sports cars --ask the prof , confused
+		speed:= current.get_speed
+		speedometer:= (speed + 1) + 1  --specific to sports cars
+		io.put_string ("Faster!")
+		io.put_new_line
+		io.put_string ("It really feels good!")
+		io.put_new_line
+		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
 		check
 			invalid_speed: speed_check > 0
 		end
@@ -107,9 +118,8 @@ do
 			io.put_new_line
 		end
 	else
-		io.put_string ("Faster!")
-		io.put_new_line
-		io.put_string ("It really feels good!")
+		-- nothing gas_max has to be greater than 15
+		io.put_string ("Minimum gas quantity should be greater than 15")
 		io.put_new_line
 	end
 end
@@ -121,6 +131,6 @@ do
 end
 
 invariant
-	invariant_clause: True -- Your invariant here
+	invariant_clause: fuel >= 0 OR speedometer >= 0 -- Your invariant here
 
 end

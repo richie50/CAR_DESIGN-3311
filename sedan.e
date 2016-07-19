@@ -17,7 +17,7 @@ feature {NONE} -- Initialization
 	make (f:INTEGER)
 			-- Initialization for `Current'.
 		require
-			valid_fuel_range: f <= 50 --should be in this range
+			valid_fuel_range:f >= 0 AND f <= 50 --should be in this range
 		do
 			fuel:= f
 			speedometer:= 0  --like a static variable
@@ -32,7 +32,7 @@ feature -- Access (fields
 	end
 	gas_max:INTEGER
 	once
-		Result:= 50 --speed limit for sedans and compact cars
+		Result:= 15 --speed limit for sedans and compact cars
 	end
 
 feature -- Status report
@@ -86,15 +86,16 @@ local
 	speed_check: INTEGER
 do
 	current_gas_max:= current.get_fuel --basicall max fuel fro the creation of the car
-	fuel:= current.get_fuel - 1
-	check
-		invalid_fuel: fuel > 0
-	end
-	speed:= current.get_speed
-	speedometer:= speed + 1
-
-	if fuel > gas_max then
-		speed_check:= (3 * current_gas_max) - 50 -- i leave it in the hands of the complier
+	if current_gas_max > gas_max then
+		fuel:= current.get_fuel - 1
+		check
+			invalid_fuel: fuel > 0
+		end
+		speed:= current.get_speed
+		speedometer:= speed + 1
+		io.put_string ("Faster!")
+		io.put_new_line
+		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
 		check
 			invalid_speed: speed_check > 0
 		end
@@ -113,7 +114,8 @@ do
 			io.put_new_line
 		end
 	else
-		io.put_string ("Faster!")
+		-- current gas maxless than 15
+		io.put_string ("Minimum gas quantity should be greater than 15")
 		io.put_new_line
 	end
 end
@@ -125,6 +127,6 @@ do
 end
 
 invariant
-	invariant_clause: True -- Your invariant here
+	invariant_clause:fuel >= 0 OR speedometer >= 0 -- Your invariant here
 
 end
