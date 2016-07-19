@@ -92,7 +92,9 @@ do
 		speed:= speed + 1
 		io.put_string ("Faster!")
 		io.put_new_line
-		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
+		--speed_check:= 3 * current.get_speed - 50 -- why does gas have anything to do with speed check
+		--speed_check:= 3 * current.get_fuel - 50 -- why does gas have anything to do with speed check
+		speed_check:= 3 * current.get_speed - 50 -- why does gas have anything to do with speed check
 		check
 			--invalid_speed: speed_check > 0
 		end

@@ -66,7 +66,7 @@ feature -- tests
 				create sedan.make
 				sedan.gas_sedan
 				from i:= 0
-					until i >  10
+					until i >  35
 					loop
 						sedan.gas_sedan
 						i:= i + 1
@@ -76,17 +76,20 @@ feature -- tests
 				io.put_integer (n)
 				io.put_new_line
 				from i:= 0
-					until i > 25
+					until i > 65
 					loop
 						sedan.accelerate
 						sedan.gas_sedan
-						sedan.gas_sedan
+						sedan.accelerate
 						sedan.gas_sedan
 						sedan.accelerate
+						sedan.gas_sedan
+						sedan.gas_sedan
+						sedan.gas_sedan
 						i:= i + 1
 					end
 				sedan.brake
-				io.put_string ("SEDAN CAR SPEED AND FUEL INFO.....")
+				io.put_string ("SEDAN CAR FUEL AND SPEED INFO.....")
 				io.put_new_line
 				io.put_integer (sedan.get_fuel)
 				io.put_new_line
