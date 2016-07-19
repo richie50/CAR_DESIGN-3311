@@ -23,7 +23,7 @@ feature {NONE} -- Initialization
 			gas:= car_info.fuel
 			speed:= car_info.speedometer
 			ensure
-			valid_fuel_range:fuel >= 15 AND fuel <= 50 --should be in this range
+			valid_fuel_range:gas >= 15 AND gas <= 50 --should be in this range
 		end
 
 feature -- Access (fields
@@ -47,13 +47,6 @@ feature -- Status report
  end
 
 feature -- Status setting
-
-set_fuel(f:INTEGER)
-require
-	valid_fuel_range:f >= 0 OR f <= 50 --should be in this range
-do
-	gas:= f
-end
 
 get_speed:INTEGER
 do
@@ -93,7 +86,7 @@ local
 	speed_check: INTEGER -- formula for determining overspeeding
 do
 	current_gas_max:= current.get_fuel --basically max fuel fro the creation of the car
-	if current_gas_max > gas_max then
+	if current_gas_max >= gas_max then
 		gas:= current.get_fuel - 1
 		check
 			invalid_fuel: fuel > 0
@@ -104,7 +97,7 @@ do
 		io.put_new_line
 		speed_check:= 3 * current.get_fuel  - 50 -- i leave it in the hands of the complier
 		check
-			invalid_speed: speed_check > 0
+			--invalid_speed: speed_check > 0
 		end
 		io.put_string ("SPEED CHECKING ==>")
 		io.put_integer (speed_check)
@@ -130,6 +123,6 @@ do
 end
 
 invariant
-	invariant_clause:fuel >= 0 OR speedometer >= 0-- Your invariant here
+	invariant_clause:gas >= 0 OR speed >= 0-- Your invariant here
 
 end

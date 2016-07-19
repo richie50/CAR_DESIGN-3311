@@ -8,24 +8,28 @@ class
 	SEDAN
 	inherit
 		CAR
+		rename gas as gas_sedan redefine gas_sedan end
+		CARS_CONSTANTS
 
 create
 	make
 
 feature {NONE} -- Initialization
 
-	make (f:INTEGER)
+	make
 			-- Initialization for `Current'.
-		require
-			valid_fuel_range:f >= 0 AND f <= 50 --should be in this range
 		do
-			fuel:= f
-			speedometer:= 0  --like a static variable
+			create car_info
+			gas:= car_info.fuel
+			speed:= car_info.speedometer  --like a static variable
+			ensure
+					valid_fuel_range:gas >= 0 AND gas <= 50 --should be in this range
 		end
 
-feature -- Access (fields
-	fuel: INTEGER
-	speedometer:INTEGER
+feature -- Access (fields)
+	car_info:CARS_CONSTANTS
+	gas: INTEGER
+	speed:INTEGER
 	speed_limit:INTEGER
 	once
 		Result:= 200 --speed limit for sedans and compact cars
@@ -39,41 +43,34 @@ feature -- Status report
 
  get_fuel:INTEGER
  do
- 	Result:= fuel
+ 	Result:= gas
  end
 
  get_speed:INTEGER
  do
- 	Result:= speedometer
+ 	Result:= speed
  end
 
 feature -- Status setting
-
-set_fuel(f:INTEGER)
-require
-	valid_fuel_range:f >= 0 OR f <= 50 --should be in this range
-do
-	fuel:= f
-end
 
 feature -- Miscellaneous
 refill_fuel(f:INTEGER)
 require
 	refill_range: f > 0 OR f <= 50
 do
-	fuel := fuel + f
+	gas := gas + f
 
 	ensure
-		fuel = old fuel + f
+		gas = old gas + f
 end
 
 feature -- Basic operations
 
-gas
+gas_sedan
 	do
-		fuel:= fuel + 1
+		gas:= gas + 1
 		check
-			max_fuel_reached: fuel >= 0 OR fuel <= 50
+			max_fuel_reached: gas >= 0 OR gas <= 50
 		end
 		io.put_string ("Gas!")
 		io.put_new_line
@@ -81,23 +78,23 @@ gas
 
 accelerate
 local
-	speed:INTEGER
+	speed_1:INTEGER
 	current_gas_max:INTEGER
 	speed_check: INTEGER
 do
 	current_gas_max:= current.get_fuel --basicall max fuel fro the creation of the car
-	if current_gas_max > gas_max then
-		fuel:= current.get_fuel - 1
+	if current_gas_max >= gas_max then
+		gas:= current.get_fuel - 1
 		check
 			invalid_fuel: fuel > 0
 		end
-		speed:= current.get_speed
-		speedometer:= speed + 1
+		speed_1:= current.get_speed
+		speed:= speed + 1
 		io.put_string ("Faster!")
 		io.put_new_line
 		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
 		check
-			invalid_speed: speed_check > 0
+			--invalid_speed: speed_check > 0
 		end
 		io.put_string ("SPEED CHECKING ==>")
 		io.put_integer (speed_check)
@@ -106,7 +103,7 @@ do
 			io.put_string ("Speeding!")
 			io.new_line
 			--specific to sedan
-			fuel:= current.get_fuel - 1 -- extra gas cost of complaining
+			gas:= current.get_fuel - 1 -- extra gas cost of complaining
 			io.put_string ("Why hurry?")
 			io.new_line
 		else
@@ -122,11 +119,11 @@ end
 
 brake
 do
-	fuel := fuel - 1;
-	speedometer:= current.get_speed - 1
+	gas := gas - 1;
+	speed:= current.get_speed - 1
 end
 
 invariant
-	invariant_clause:fuel >= 0 OR speedometer >= 0 -- Your invariant here
+	invariant_clause:gas >= 0 OR speed >= 0 -- Your invariant here
 
 end
