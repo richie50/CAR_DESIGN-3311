@@ -18,17 +18,16 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
-			create car_info
-			gas:= car_info.fuel
-			speed:= car_info.speedometer
+			create output_file.make_open_write("sports_output.txt")
+			gas:= current.car_fuel
+			speed:= current.car_speed
 			ensure
-					valid_fuel_range: gas <= 300 --should be in this range --testing change this pre condition
+					valid_fuel_range: gas >= 0 OR gas <= 50 --should be in this range --testing change this pre condition
 		end
 
 feature -- Access (fields
 	gas: INTEGER
 	speed: INTEGER
-	car_info:CARS_CONSTANTS
 	speed_limit:INTEGER
 	once
 		Result:= 300 --speed limit for sports car
@@ -53,6 +52,22 @@ feature -- Status setting
 
 feature {NONE} -- Implementation
 
+feature -- Implementation
+car_fuel:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.fuel
+	end
+
+car_speed:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.speedometer
+	end
 feature -- Miscellaneous
 refill_fuel(f:INTEGER)
 require
@@ -72,6 +87,7 @@ gas_sports
 			max_fuel_reached: gas >= 0 OR gas <= 50
 		end
 		io.put_string ("Gas!")
+		output_file.put_string ("Gas!%N")
 		io.put_new_line
 	end
 
@@ -81,17 +97,19 @@ local
 	current_gas_max:INTEGER
 	speed_check: INTEGER
 do
-	current_gas_max:= current.get_fuel --basicall max fuel fro the creation of the car , must be greater than 15
+	current_gas_max:= current.get_fuel --basically max fuel fro the creation of the car , must be greater than 15
 	check
 		--invalid_fuel: current_gas_max > 0
 	end
 	if current_gas_max >= gas_max then
-		gas:= (current.get_fuel - 1) - 2 --specfic to sports cars --ask the prof , confused
+		gas:= (current.get_fuel - 1) - 1 --specfic to sports cars --ask the prof , confused
 		speed_1:= current.get_speed
 		speed:= (speed_1 + 1) + 1  --specific to sports cars
 		io.put_string ("Faster!")
+		output_file.put_string ("Faster!%N")
 		io.put_new_line
 		io.put_string ("It really feels good!")
+		output_file.put_string ("It really feels good!%N")
 		io.put_new_line
 		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
 		check
@@ -102,15 +120,14 @@ do
 		io.put_new_line
 		if speed_check >= speed_limit then
 			io.put_string ("Speeding!")
-			io.new_line
-			--specific to sedan
-			gas:= current.get_fuel - 1 -- extra gas cost of complaining
-			io.put_string ("This feels amazing better than having sex!!!!!WOOOOOOOOOHHHH!!!")
+			output_file.put_string ("Speeding!%N")
 			io.new_line
 		else
 			io.put_string ("Faster!")
+			output_file.put_string ("Faster!%N")
 			io.put_new_line
-			io.put_string ("It really feels good!")
+			io.put_string ("It really feels good!%N")
+			output_file.put_string ("It really feels good!%N")
 			io.put_new_line
 		end
 	else
@@ -126,7 +143,14 @@ do
 	speed:= current.get_speed - 1
 end
 
+close_file
+do
+	output_file.close
+end
+
+feature
+	output_file:PLAIN_TEXT_FILE
 invariant
-	invariant_clause: gas >= 0 OR speed >= 0 -- Your invariant here
+	invariant_clause: gas >= 15 OR speed >= 0 -- Your invariant here
 
 end

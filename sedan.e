@@ -9,8 +9,6 @@ class
 	inherit
 		CAR
 		rename gas as gas_sedan redefine gas_sedan end
-		CARS_CONSTANTS
-
 create
 	make
 
@@ -20,15 +18,13 @@ feature {NONE} -- Initialization
 			-- Initialization for `Current'.
 		do
 			create output_file.make_open_write("sedan_output.txt")
-			create car_info
-			gas:= car_info.fuel
-			speed:= car_info.speedometer  --like a static variable
+			gas:= current.car_fuel
+			speed:= current.car_speed  --like a static variable
 			ensure
 					valid_fuel_range:gas >= 0 AND gas <= 50 --should be in this range
 		end
 
 feature -- Access (fields)
-	car_info:CARS_CONSTANTS
 	gas: INTEGER
 	speed:INTEGER
 	speed_limit:INTEGER
@@ -54,8 +50,22 @@ feature -- Status report
 
 feature -- Status setting
 
-feature -- Miscellaneous
+feature  -- Implementation
+car_fuel:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.fuel
+	end
 
+car_speed:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.speedometer
+	end
 close_file
 do
 	output_file.close

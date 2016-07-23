@@ -16,7 +16,7 @@ feature
 	do
 		add_boolean_case(agent t1)
 		add_boolean_case(agent t2)
-		--add_boolean_case(agent t3)
+		add_boolean_case(agent t3)
 		--add_violation_case(agent v1)
 	end
 
@@ -137,16 +137,12 @@ feature -- tests
 				end
 		t3:BOOLEAN
 						local
-							sedan: SEDAN
 							sports: SPORTS
-							compact: COMPACT
 							i:INTEGER
 							n:INTEGER
 					do
 						--| Add your code here
-						print ("Hello Eiffel World!%N")
 						create sports.make
-						sports.accelerate_sports
 						n:= sports.get_fuel
 						from i:= 0
 							until i >  35
@@ -155,22 +151,33 @@ feature -- tests
 									i:= i + 1
 								end
 									from i:= 0
-										until i >  100
+										until i >  300
 										loop
+											sports.accelerate_sports
+											sports.accelerate_sports
 											sports.accelerate_sports
 											sports.gas_sports
 											sports.gas_sports
 											sports.gas_sports
+											sports.accelerate_sports
+											sports.accelerate_sports
+											sports.gas_sports
+											sports.gas_sports
+											sports.gas_sports
+											sports.accelerate_sports
+											sports.accelerate_sports
+											sports.accelerate_sports
+											sports.accelerate_sports
+											sports.brake
 											i:= i + 1
 										end
+						sports.close_file
 						io.put_string ("SPORTS CAR SPEED AND FUEL INFO.....")
+						io.put_integer (sports.get_speed)
 						io.put_new_line
-						--output_file.put (sports.get_fuel.to_character_8)
+						io.put_integer (sports.get_fuel)
 						io.put_new_line
-						--output_file.put (sports.get_speed.to_character_8)
-						io.put_new_line
-						--output_file.close
-						Result:= true
+						Result:= sports.get_fuel >= 15 AND sports.get_speed >= 0
 					end
 
 end

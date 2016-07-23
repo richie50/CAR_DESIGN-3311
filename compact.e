@@ -11,7 +11,6 @@ class
 		CAR
 			rename gas as gas_compact , accelerate as accelerate_compact
 			redefine gas_compact, accelerate_compact end
-		CARS_CONSTANTS
 create
 	make
 
@@ -21,9 +20,8 @@ feature {NONE} -- Initialization
 			-- Initialization for `Current'.
 		do
 			create output_file.make_open_write ("compact_output.txt") -- test output file
-			create car_info
-			gas:= car_info.fuel
-			speed:= car_info.speedometer
+			gas:= current.car_fuel
+			speed:= current.car_speed
 			ensure
 			valid_fuel_range:gas >= 15 AND gas <= 50 --should be in this range
 		end
@@ -31,7 +29,6 @@ feature {NONE} -- Initialization
 feature -- Access (fields
 	gas: INTEGER
 	speed:INTEGER
-	car_info: CARS_CONSTANTS
 	speed_limit:INTEGER
 	once
 		Result:= 200 --speed limit for sedans and compact cars
@@ -55,7 +52,22 @@ do
 	Result:= speed
 end
 
-feature {NONE} -- Implementation
+feature -- Implementation
+car_fuel:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.fuel
+	end
+
+car_speed:INTEGER
+	local
+		car_info: CARS_CONSTANTS
+	do
+		create car_info
+		result:= car_info.speedometer
+	end
 
 feature -- Miscellaneous
 close_file

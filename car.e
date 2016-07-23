@@ -5,7 +5,8 @@ note
 	revision: "$Revision$"
 
 deferred class
-	CAR
+	CAR inherit
+	CARS_CONSTANTS
 
 feature {ANY}
 
@@ -21,4 +22,11 @@ brake
 	deferred
 end
 
+feature
+	car_fuel:INTEGER
+	deferred
+	end
+	car_speed:INTEGER
+	deferred
+	end
 end
