@@ -102,23 +102,23 @@ do
 		--invalid_fuel: current_gas_max > 0
 	end
 	if current_gas_max >= gas_max then
-		gas:= (current.get_fuel - 1) - 1 --specfic to sports cars --ask the prof , confused
+		gas:= current.get_fuel - 3 --specfic to sports cars
 		speed_1:= current.get_speed
-		speed:= (speed_1 + 1) + 1  --specific to sports cars
+		speed:= speed_1 + 2  --specific to sports cars
 		io.put_string ("Faster!")
 		output_file.put_string ("Faster!%N")
 		io.put_new_line
 		io.put_string ("It really feels good!")
 		output_file.put_string ("It really feels good!%N")
 		io.put_new_line
-		speed_check:= 3 * current.get_fuel - 50 -- i leave it in the hands of the complier
+		speed_check:= (3 * current.get_fuel) - 50
 		check
-			--invalid_speed: speed_check > 0
+			--valid_speed_check: speed >= 0 AND speed <= speed_limit --just to get an output
 		end
 		io.put_string ("SPEED CHECKING ............")
 		io.put_integer (speed_check)
 		io.put_new_line
-		if speed_check >= speed_limit then
+		if speed >= speed_check then
 			io.put_string ("Speeding!")
 			output_file.put_string ("Speeding!%N")
 			io.new_line

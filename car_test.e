@@ -72,12 +72,10 @@ feature -- tests
 				io.put_integer (n)
 				io.put_new_line
 				from i:= 0
-					until i > 65
+					until i > 400
 					loop
 						sedan.accelerate
-						sedan.gas_sedan
 						sedan.accelerate
-						sedan.gas_sedan
 						sedan.accelerate
 						sedan.gas_sedan
 						sedan.gas_sedan
@@ -113,13 +111,11 @@ feature -- tests
 							end
 
 								from i:= 0
-									until i >  50
+									until i >  400
 										loop
 											compact.accelerate_compact
 											compact.accelerate_compact
 											compact.accelerate_compact
-											compact.gas_compact
-											compact.gas_compact
 											compact.gas_compact
 											compact.gas_compact
 											compact.gas_compact
@@ -154,18 +150,12 @@ feature -- tests
 										until i >  300
 										loop
 											sports.accelerate_sports
-											sports.accelerate_sports
+											sports.gas_sports
+											sports.gas_sports
 											sports.accelerate_sports
 											sports.gas_sports
 											sports.gas_sports
 											sports.gas_sports
-											sports.accelerate_sports
-											sports.accelerate_sports
-											sports.gas_sports
-											sports.gas_sports
-											sports.gas_sports
-											sports.accelerate_sports
-											sports.accelerate_sports
 											sports.accelerate_sports
 											sports.accelerate_sports
 											sports.brake
