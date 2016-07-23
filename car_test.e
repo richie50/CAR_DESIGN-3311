@@ -14,9 +14,8 @@ class
 feature
 	make
 	do
-		create output_file.make_open_write ("output.txt") -- test output file
 		add_boolean_case(agent t1)
-		--add_boolean_case(agent t2)
+		add_boolean_case(agent t2)
 		--add_boolean_case(agent t3)
 		--add_violation_case(agent v1)
 	end
@@ -56,8 +55,6 @@ feature -- tests
 		t1:BOOLEAN
 				local
 					sedan: SEDAN
-					sports: SPORTS
-					compact: COMPACT
 					i:INTEGER
 					n:INTEGER
 			do
@@ -71,7 +68,6 @@ feature -- tests
 						sedan.gas_sedan
 						i:= i + 1
 					end
-				n:= sedan.get_fuel
 				io.put_string ("Curent gas .....  ")
 				io.put_integer (n)
 				io.put_new_line
@@ -86,22 +82,21 @@ feature -- tests
 						sedan.gas_sedan
 						sedan.gas_sedan
 						sedan.gas_sedan
+						sedan.brake
 						i:= i + 1
 					end
-				sedan.brake
+				sedan.close_file
 				io.put_string ("SEDAN CAR FUEL AND SPEED INFO.....")
 				io.put_new_line
 				io.put_integer (sedan.get_fuel)
 				io.put_new_line
 				io.put_integer (sedan.get_speed)
 				io.put_new_line
-				Result:= true
+				Result:= sedan.get_fuel >= 0 AND sedan.get_speed >= 0
 			end
 
 		t2:BOOLEAN
 					local
-						sedan: SEDAN
-						sports: SPORTS
 						compact: COMPACT
 						i:INTEGER
 						n:INTEGER
@@ -110,7 +105,6 @@ feature -- tests
 					print ("Hello Eiffel World!%N")
 					create compact.make
 					compact.gas_compact
-					compact.brake
 					from i:= 0
 						until i >  35
 							loop
@@ -119,19 +113,27 @@ feature -- tests
 							end
 
 								from i:= 0
-									until i >  100
+									until i >  50
 										loop
 											compact.accelerate_compact
+											compact.accelerate_compact
+											compact.accelerate_compact
 											compact.gas_compact
+											compact.gas_compact
+											compact.gas_compact
+											compact.gas_compact
+											compact.gas_compact
+											compact.brake
 											i:= i + 1
 										end
+					compact.close_file
 					io.put_string ("COMPACT CAR SPEED AND FUEL INFO.....")
 					io.put_new_line
 					io.put_integer (compact.get_fuel)
 					io.put_new_line
 					io.put_integer (compact.get_speed)
 					io.put_new_line
-					Result:= true
+					Result:= compact.get_fuel >= 15 AND compact.get_speed >= 0
 				end
 		t3:BOOLEAN
 						local
@@ -163,14 +165,12 @@ feature -- tests
 										end
 						io.put_string ("SPORTS CAR SPEED AND FUEL INFO.....")
 						io.put_new_line
-						output_file.put (sports.get_fuel.to_character_8)
+						--output_file.put (sports.get_fuel.to_character_8)
 						io.put_new_line
-						output_file.put (sports.get_speed.to_character_8)
+						--output_file.put (sports.get_speed.to_character_8)
 						io.put_new_line
-						output_file.close
+						--output_file.close
 						Result:= true
 					end
-feature
-	output_file: PLAIN_TEXT_FILE
 
 end

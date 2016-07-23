@@ -7,6 +7,7 @@ note
 class
 	COMPACT
 	inherit
+		ANY
 		CAR
 			rename gas as gas_compact , accelerate as accelerate_compact
 			redefine gas_compact, accelerate_compact end
@@ -19,6 +20,7 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
+			create output_file.make_open_write ("compact_output.txt") -- test output file
 			create car_info
 			gas:= car_info.fuel
 			speed:= car_info.speedometer
@@ -56,6 +58,11 @@ end
 feature {NONE} -- Implementation
 
 feature -- Miscellaneous
+close_file
+	do
+		output_file.close
+	end
+
 refill_fuel(f:INTEGER)
 require
 	refill_range: f > 0 OR f <= 50
@@ -74,8 +81,10 @@ gas_compact
 			max_fuel_reached: gas >= 0 OR gas <= 50
 		end
 		io.put_string ("Gas!")
+		output_file.put_string ("Gas!%N")
 		io.put_new_line
 		io.put_string ("Well, I have to work hard again")
+		output_file.put_string("Well, I have to work hard again%N")
 		io.put_new_line
 	end
 
@@ -94,6 +103,7 @@ do
 		speed_1:= current.get_speed
 		speed := speed + 1
 		io.put_string ("Faster!")
+		output_file.put_string ("Faster!%N")
 		io.put_new_line
 		speed_check:= 3 * current.get_fuel  - 50 -- i leave it in the hands of the complier
 		check
@@ -104,9 +114,11 @@ do
 		io.put_new_line
 		if speed_check >= speed_limit then
 			io.put_string ("Speeding!")
+			output_file.put_string ("Speeding%N")
 			io.new_line
 		else
 			io.put_string ("Faster!")
+			output_file.put_string ("Faster!%N")
 			io.put_new_line
 		end
 	else
@@ -121,6 +133,10 @@ do
 	gas := gas - 1;
 	speed:= current.get_speed - 1
 end
+
+
+feature
+	output_file: PLAIN_TEXT_FILE
 
 invariant
 	invariant_clause:gas >= 0 OR speed >= 0-- Your invariant here
