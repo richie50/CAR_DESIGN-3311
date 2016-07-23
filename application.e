@@ -17,7 +17,7 @@ feature {NONE} -- Initialization
 		do
 			add_test (create {CAR_TEST}.make)
 			show_errors
-			show_browser
+			--show_browser
 			run_espec
 		end
 

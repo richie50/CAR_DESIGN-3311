@@ -83,12 +83,12 @@ feature -- Basic operations
 gas_sports
 	do
 		gas:= gas + 1
-		check
-			max_fuel_reached: gas >= 0 OR gas <= 50
-		end
 		io.put_string ("Gas!")
 		output_file.put_string ("Gas!%N")
 		io.put_new_line
+		check
+			max_fuel_reached: gas >= 0 OR gas <= 50
+		end
 	end
 
 accelerate_sports

@@ -14,8 +14,8 @@ class
 feature
 	make
 	do
-		add_boolean_case(agent t1)
-		add_boolean_case(agent t2)
+		--add_boolean_case(agent t1)
+		--add_boolean_case(agent t2)
 		add_boolean_case(agent t3)
 		--add_violation_case(agent v1)
 	end
@@ -139,26 +139,18 @@ feature -- tests
 					do
 						--| Add your code here
 						create sports.make
-						n:= sports.get_fuel
 						from i:= 0
-							until i >  35
+							until i >  50
 								loop
 									sports.gas_sports
 									i:= i + 1
 								end
 									from i:= 0
-										until i >  300
+										until i >  500
 										loop
 											sports.accelerate_sports
 											sports.gas_sports
-											sports.gas_sports
-											sports.accelerate_sports
-											sports.gas_sports
-											sports.gas_sports
-											sports.gas_sports
-											sports.accelerate_sports
-											sports.accelerate_sports
-											sports.brake
+											--sports.brake
 											i:= i + 1
 										end
 						sports.close_file
