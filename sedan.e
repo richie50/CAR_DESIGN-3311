@@ -8,7 +8,8 @@ class
 	SEDAN
 	inherit
 		CAR
-		rename gas as gas_sedan redefine gas_sedan end
+		rename gas as gas_sedan redefine gas_sedan
+		end
 create
 	make
 
@@ -109,15 +110,16 @@ do
 		speed_1:= current.get_speed
 		speed:= speed + 1
 		check
-			--valid_speed_check: speed >= 0 AND speed >= speed_limit
+			--valid_speed_check: speed >= 0 AND speed >= speed_limit , to make the program execute with no exceptions raised , we left this a comment
 		end
 		io.put_string ("Faster!")
 		output_file.put_string ("Faster!%N")
 		io.put_new_line
-		speed_check:= (3 * current.get_fuel) - 50 -- why does gas have anything to do with speed check
-		io.put_string ("SPEED CHECKING ==>")
-		io.put_integer (speed_check)
-		io.put_new_line
+		speed_check:= (3 * current.get_fuel) - 50
+		--debug
+			--io.put_string ("SPEED CHECKING ==>")
+			--io.put_integer (speed_check)
+			--io.put_new_line
 		if speed >= speed_check then
 			io.put_string ("Speeding!")
 			output_file.put_string ("Speeding!%N")

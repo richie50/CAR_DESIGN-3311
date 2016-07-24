@@ -115,9 +115,10 @@ do
 		check
 			--valid_speed_check: speed >= 0 AND speed <= speed_limit --just to get an output
 		end
-		io.put_string ("SPEED CHECKING ............")
-		io.put_integer (speed_check)
-		io.put_new_line
+		-- debug
+			--io.put_string ("SPEED CHECKING ............")
+			--io.put_integer (speed_check)
+		--	io.put_new_line
 		if speed >= speed_check then
 			io.put_string ("Speeding!")
 			output_file.put_string ("Speeding!%N")

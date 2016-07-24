@@ -14,44 +14,13 @@ class
 feature
 	make
 	do
-		--add_boolean_case(agent t1)
-		--add_boolean_case(agent t2)
+		add_boolean_case(agent t1)
+		add_boolean_case(agent t2)
 		add_boolean_case(agent t3)
-		--add_violation_case(agent v1)
 	end
 
 feature -- tests	
 	-- Run application.
-	v1
-			local
-				sedan: SEDAN
-				sports: SPORTS
-				compact: COMPACT
-				i:INTEGER
-				n:INTEGER
-		do
-			--| Add your code here
-			create sedan.make
-			--give it liltle bit more gas
-			n:= sedan.get_fuel
-			io.put_integer (n)
-			io.put_new_line
-			from i:= 0
-				until i >  50
-				loop
-					i:= i + 1
-					sedan.gas_sedan
-				end
-				from i:= 0
-					until i >  100
-					loop
-					sedan.accelerate
-					i:= i + 1
-					sedan.gas_sedan
-				end
-
-		end
-
 		t1:BOOLEAN
 				local
 					sedan: SEDAN
@@ -73,16 +42,16 @@ feature -- tests
 				io.put_new_line
 				from i:= 0
 					until i > 400
-					loop
-						sedan.accelerate
-						sedan.accelerate
-						sedan.accelerate
-						sedan.gas_sedan
-						sedan.gas_sedan
-						sedan.gas_sedan
-						sedan.brake
-						i:= i + 1
-					end
+						loop
+							sedan.accelerate
+							sedan.accelerate
+							sedan.accelerate
+							sedan.gas_sedan
+							sedan.gas_sedan
+							sedan.gas_sedan
+							sedan.brake
+							i:= i + 1
+						end
 				sedan.close_file
 				io.put_string ("SEDAN CAR FUEL AND SPEED INFO.....")
 				io.put_new_line
@@ -90,6 +59,7 @@ feature -- tests
 				io.put_new_line
 				io.put_integer (sedan.get_speed)
 				io.put_new_line
+				comment("SEDAN CAR TEST")
 				Result:= sedan.get_fuel >= 0 AND sedan.get_speed >= 0
 			end
 
@@ -129,6 +99,7 @@ feature -- tests
 					io.put_new_line
 					io.put_integer (compact.get_speed)
 					io.put_new_line
+					comment("COMPACT CAR TEST")
 					Result:= compact.get_fuel >= 15 AND compact.get_speed >= 0
 				end
 		t3:BOOLEAN
@@ -146,9 +117,10 @@ feature -- tests
 									i:= i + 1
 								end
 									from i:= 0
-										until i >  500
+										until i > 530
 										loop
 											sports.accelerate_sports
+											sports.gas_sports
 											sports.gas_sports
 											--sports.brake
 											i:= i + 1
@@ -159,6 +131,7 @@ feature -- tests
 						io.put_new_line
 						io.put_integer (sports.get_fuel)
 						io.put_new_line
+						comment("SPORTS CAR TEST")
 						Result:= sports.get_fuel >= 15 AND sports.get_speed >= 0
 					end
 
