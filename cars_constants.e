@@ -1,6 +1,6 @@
 note
 	description: "Summary description for {CARS_CONSTANTS}."
-	author: ""
+	author: "RICHMOND FRIMPONG , SYED RAHMAN"
 	date: "$Date$"
 	revision: "$Revision$"
 

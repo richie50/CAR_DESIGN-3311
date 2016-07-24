@@ -1,6 +1,6 @@
 note
 	description: "Summary description for {SPORTS}."
-	author: ""
+	author: "RICHMOND FRIMPONG , SYED RAHMAN"
 	date: "$Date$"
 	revision: "$Revision$"
 
